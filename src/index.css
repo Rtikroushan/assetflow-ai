@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 * {
   box-sizing: border-box;
 }
@@ -8,11 +10,21 @@ html {
   scroll-behavior: smooth;
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
   background: #f5f7fb;
   color: #0f172a;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+html.dark body {
+  background: #0b0f19;
+  color: #f1f5f9;
 }
 
 button,
@@ -50,6 +62,8 @@ textarea {
     90deg,
     #2563eb,
     #7c3aed
+
+    
   );
 
   -webkit-background-clip: text;
@@ -83,3 +97,412 @@ textarea {
     0 20px 40px rgba(15, 23, 42, 0.1);
 }
 
+
+/* AssetFlow premium navigation polish */
+.dark ::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #30323a;
+  border-radius: 999px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #454751;
+}
+
+/* Premium AssetFlow visual polish */
+::selection {
+  background: rgba(124, 58, 237, 0.22);
+  color: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #30323a;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #454751;
+}
+
+
+/* ------------------------------------------------------------------
+   AssetFlow premium surface system
+   Keeps dashboard cards, panels and navigation surfaces visually
+   consistent with the dark premium hero/sidebar design.
+------------------------------------------------------------------- */
+.premium-ui {
+  --af-border-light: rgba(148, 163, 184, 0.24);
+  --af-border-dark: rgba(129, 102, 255, 0.22);
+  --af-shadow-light: 0 14px 38px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255,255,255,.72);
+  --af-shadow-dark: 0 18px 55px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+/* Card/panel surfaces */
+.premium-ui .rounded-3xl.border,
+.premium-ui .rounded-2xl.border,
+.premium-ui .rounded-xl.border {
+  border-color: var(--af-border-light);
+  box-shadow: var(--af-shadow-light);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.dark .premium-ui .rounded-3xl.border,
+.dark .premium-ui .rounded-2xl.border,
+.dark .premium-ui .rounded-xl.border {
+  border-color: var(--af-border-dark);
+  box-shadow: var(--af-shadow-dark);
+}
+
+/* Give larger content boxes a subtle premium edge, without changing pills. */
+.premium-ui .rounded-3xl.border:hover,
+.premium-ui .rounded-2xl.border:hover {
+  border-color: rgba(139, 92, 246, .38);
+  box-shadow: 0 18px 52px rgba(76, 29, 149, .10), inset 0 1px 0 rgba(255,255,255,.65);
+}
+
+.dark .premium-ui .rounded-3xl.border:hover,
+.dark .premium-ui .rounded-2xl.border:hover {
+  border-color: rgba(139, 92, 246, .34);
+  box-shadow: 0 22px 65px rgba(0,0,0,.36), 0 0 0 1px rgba(139,92,246,.035) inset;
+}
+
+/* Consistent premium panel backgrounds for neutral cards. */
+.premium-ui .bg-white.rounded-3xl,
+.premium-ui .bg-white.rounded-2xl,
+.premium-ui .bg-white.rounded-xl {
+  background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(248,250,252,.94));
+}
+
+.dark .premium-ui .bg-white.rounded-3xl,
+.dark .premium-ui .bg-white.rounded-2xl,
+.dark .premium-ui .bg-white.rounded-xl {
+  background: linear-gradient(145deg, rgba(15,23,42,.96), rgba(10,15,28,.96));
+}
+
+/* Header/search/notification controls share the same premium language. */
+.premium-ui input,
+.premium-ui select,
+.premium-ui textarea {
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+/* Keep links/buttons crisp and premium without changing pill badges. */
+.premium-ui a:not(.rounded-full),
+.premium-ui button:not(.rounded-full) {
+  transition-duration: .2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-ui .rounded-3xl.border,
+  .premium-ui .rounded-2xl.border,
+  .premium-ui .rounded-xl.border {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   AssetFlow adaptive edge + theme system
+   Makes the hero, page edges, sidebar and header feel like one product.
+------------------------------------------------------------------- */
+.app-shell {
+  --af-page-bg: #f5f7fb;
+  --af-edge: rgba(124, 58, 237, .16);
+  --af-edge-strong: rgba(99, 102, 241, .34);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: 3px;
+  z-index: 60;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, rgba(99,102,241,.20) 18%, rgba(168,85,247,.38) 50%, rgba(59,130,246,.18) 82%, transparent 100%);
+  opacity: .72;
+}
+
+.app-content::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, var(--af-edge-strong) 18%, var(--af-edge) 50%, transparent 82%);
+}
+
+.premium-header {
+  box-shadow: 0 1px 0 rgba(124,58,237,.04), 0 10px 28px rgba(15,23,42,.035);
+}
+
+.dark .premium-header {
+  box-shadow: 0 1px 0 rgba(139,92,246,.10), 0 12px 35px rgba(0,0,0,.22);
+}
+
+.premium-sidebar {
+  isolation: isolate;
+}
+
+.premium-sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  width: 2px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, rgba(99,102,241,.24) 16%, rgba(168,85,247,.58) 48%, rgba(59,130,246,.24) 82%, transparent 100%);
+  opacity: .65;
+}
+
+.dark .premium-sidebar::after {
+  opacity: .85;
+}
+
+.premium-main {
+  position: relative;
+}
+
+/* Adaptive hero: the artwork remains the same, but its readability surface
+   switches with the active theme instead of forcing a permanently dark card. */
+.hero-theme {
+  isolation: isolate;
+  border-color: rgba(99,102,241,.30) !important;
+  box-shadow: 0 22px 70px rgba(30,41,59,.13), inset 0 1px 0 rgba(255,255,255,.72) !important;
+}
+
+.hero-theme .hero-art {
+  opacity: .94;
+  filter: saturate(.98) contrast(1.02);
+}
+
+.hero-theme .hero-overlay {
+  background: linear-gradient(90deg, rgba(4,7,18,.96) 0%, rgba(5,8,20,.88) 34%, rgba(5,8,20,.44) 58%, rgba(5,8,20,.06) 100%);
+}
+
+.hero-theme .hero-vignette {
+  background: linear-gradient(180deg, rgba(2,4,12,.04), rgba(2,4,12,.14) 55%, rgba(2,4,12,.50));
+}
+
+.hero-theme .hero-accent {
+  background: radial-gradient(circle at 15% 55%, rgba(124,58,237,.17), transparent 62%);
+}
+
+.dark .hero-theme {
+  border-color: rgba(139,92,246,.38) !important;
+  box-shadow: 0 28px 82px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.04) !important;
+}
+
+.dark .hero-theme .hero-art {
+  opacity: .92;
+  filter: saturate(1.04) contrast(1.05);
+}
+
+.dark .hero-theme .hero-overlay {
+  background: linear-gradient(90deg, rgba(3,6,14,.97) 0%, rgba(3,6,14,.89) 34%, rgba(3,6,14,.44) 57%, rgba(3,6,14,.08) 100%);
+}
+
+/* Light mode gets a luminous, glassy surface around the same artwork. */
+html:not(.dark) .hero-theme {
+  background: linear-gradient(135deg, #f8f7ff 0%, #eef2ff 48%, #e9e7ff 100%) !important;
+}
+
+html:not(.dark) .hero-theme .hero-art {
+  opacity: .64;
+  filter: saturate(.90) brightness(1.12) contrast(.94);
+}
+
+html:not(.dark) .hero-theme .hero-overlay {
+  background: linear-gradient(90deg, rgba(248,249,255,.98) 0%, rgba(245,246,255,.90) 34%, rgba(245,246,255,.48) 59%, rgba(245,246,255,.08) 100%);
+}
+
+html:not(.dark) .hero-theme .hero-vignette {
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.02) 52%, rgba(99,102,241,.10));
+}
+
+html:not(.dark) .hero-theme .hero-accent {
+  background: radial-gradient(circle at 15% 55%, rgba(124,58,237,.10), transparent 62%);
+}
+
+html:not(.dark) .hero-theme h2,
+html:not(.dark) .hero-theme p {
+  color: #172033;
+}
+
+html:not(.dark) .hero-theme .bg-gradient-to-r.from-fuchsia-400 {
+  background-image: linear-gradient(90deg,#7c3aed,#a855f7,#2563eb) !important;
+}
+
+html:not(.dark) .hero-theme .bg-slate-950\/60 {
+  background: rgba(255,255,255,.70) !important;
+  border-color: rgba(124,58,237,.15) !important;
+  color: #334155 !important;
+  box-shadow: 0 10px 30px rgba(79,70,229,.10) !important;
+}
+
+/* More intentional edge treatment for content cards. */
+.premium-ui .rounded-3xl.border,
+.premium-ui .rounded-2xl.border {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-ui .rounded-3xl.border::after,
+.premium-ui .rounded-2xl.border::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,.20), rgba(59,130,246,.16), transparent);
+}
+
+.dark .premium-ui .rounded-3xl.border::after,
+.dark .premium-ui .rounded-2xl.border::after {
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,.42), rgba(59,130,246,.28), transparent);
+}
+
+@media (max-width: 1024px) {
+  .app-shell::before,
+  .app-content::before,
+  .premium-sidebar::after {
+    opacity: .45;
+  }
+}
+
+
+/* Dashboard card overflow fix: grid children must be allowed to shrink. */
+.dashboard-stats-grid {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.dashboard-stats-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.dashboard-stats-grid .group {
+  min-width: 0;
+}
+
+@media (max-width: 1280px) {
+  .dashboard-stats-grid {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-stats-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Soft cinematic theme transition
+   The page eases between surfaces instead of snapping between themes.
+------------------------------------------------------------------- */
+html.theme-transitioning,
+html.theme-transitioning body {
+  transition:
+    background-color 1350ms cubic-bezier(.25,.8,.25,1),
+    color 1350ms cubic-bezier(.25,.8,.25,1);
+}
+
+html.theme-transitioning .app-shell,
+html.theme-transitioning .app-shell * {
+  transition-property: background-color, border-color, color, box-shadow, fill, stroke, opacity;
+  transition-duration: 1350ms;
+  transition-timing-function: cubic-bezier(.25,.8,.25,1);
+}
+
+html.theme-transitioning::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(28px);
+  background:
+    radial-gradient(circle at 72% 28%, rgba(139,92,246,.13), transparent 30%),
+    radial-gradient(circle at 25% 74%, rgba(59,130,246,.09), transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.035), transparent 42%);
+  animation: af-theme-breathe 1380ms cubic-bezier(.25,.8,.25,1) both;
+}
+
+@keyframes af-theme-breathe {
+  0% { opacity: 0; transform: scale(.985); }
+  28% { opacity: .48; transform: scale(1); }
+  62% { opacity: .18; transform: scale(1.008); }
+  100% { opacity: 0; transform: scale(1.015); }
+}
+
+/* Keep the Admin mark itself unchanged; only its visual tone adapts. */
+.admin-brand-mark {
+  transition: filter 700ms cubic-bezier(.25,.8,.25,1), opacity 700ms ease;
+}
+
+html:not(.dark) .admin-brand-mark {
+  filter: saturate(.82) brightness(1.08) hue-rotate(-4deg);
+}
+
+html.dark .admin-brand-mark {
+  filter: saturate(1.12) brightness(.94) hue-rotate(5deg);
+}
+
+.theme-toggle-one {
+  isolation: isolate;
+}
+
+.theme-toggle-one::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,.08) 50%, transparent 80%);
+  opacity: .65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning .app-shell,
+  html.theme-transitioning .app-shell *,
+  html.theme-transitioning,
+  html.theme-transitioning body {
+    transition-duration: 220ms;
+  }
+
+  html.theme-transitioning::after {
+    animation-duration: 220ms;
+  }
+}
